@@ -8,9 +8,6 @@ use Pimcore\Event\Model\ElementEventInterface;
 use Pimcore\Model\DataObject\Product;
 
 class ProductUpdateListener {
-    /**
-     * @throws \Exception
-     */
     public function onObjectPostUpdate(ElementEventInterface $eventElement): void {
         $logger = new Logger();
         $logger->info('ProductUpdateListener::onObjectPostUpdate called');
