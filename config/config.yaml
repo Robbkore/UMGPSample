@@ -3,6 +3,9 @@ imports:
 
 
 pimcore:
+    bundles:
+        search_paths:
+            - bundles/Robbkore/ProductExporterBundle
 
 # IMPORTANT Notice!
 # Following there are only some examples listed, for a full list of possible options, please run the following command:
