@@ -73,3 +73,7 @@ services:
     # App\EventListener\TestListener:
     #     tags:
     #         - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: onObjectPreUpdate }
+
+    Robbkore\ProductExporterBundle\Listener\ProductUpdateListener:
+        tags:
+            - { name: kernel.event_listener, event: pimcore.dataobject.postUpdate, method: onObjectPostUpdate }
