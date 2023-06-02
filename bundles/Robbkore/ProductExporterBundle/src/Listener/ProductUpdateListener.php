@@ -12,8 +12,9 @@ class ProductUpdateListener {
         $logger = new Logger();
         $logger->info('ProductUpdateListener::onObjectPostUpdate called');
 
+        // Bail early. In theory, this shouldn't happen unless someone changes the configuration and tries to pass in other events to the listener.
         if (!($eventElement instanceof DataObjectEvent)) {
-            $logger->error('ProductUpdateListener: This listener can only be bound to DataObjectEvents. Please check your service ');
+            $logger->error('ProductUpdateListener: This listener can only be bound to DataObjectEvents. Please check your service configuration.');
             return;
         }
 
@@ -26,6 +27,7 @@ class ProductUpdateListener {
             $media_type = $dataObject->getMedia_type();
             $isPublished = $dataObject->isPublished();
 
+            // If the product is not published, just log that there was nothing updated.
             if (!$isPublished) {
                 $logger->info('ProductUpdateListener: Product is not published.');
                 return;
