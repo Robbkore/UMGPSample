@@ -4,8 +4,7 @@ Welcome! Thank you for taking the time to review my code sample submission.
 
 ## ✔ Setup
 
-I used the Docker setup for the sample, instructions I followed are from the Pimcore skeleton 
-project and can be found in PIMCORE.md.  
+The bundle is inside the Pimcore skeleton project (original readme: PIMCORE.md). I used the docker-compose.yml file from the skeleton.  
 
 For extra reference see the files in /pimcore-extra. I've added the class definition for the 
 Product class, as well as an export of the products I created and used to test integration. 
@@ -18,4 +17,14 @@ cp env.dev.local.sample to env.dev.local and change the values to work.
 
 Once you add a new product through the Pimcore admin tool, the listener should either create 
 or update an existing product, if it's published.
+
+## ✔ Running the tests
+
+I've added a few tests to the project, to run them, run the following command from the root:
+
+```
+php vendor/bin/phpunit bundles/Robbkore/ProductExporterBundle/tests
+```
+
+I did not load the tests in to the configuration since I was running them through PHPStorm.
 
