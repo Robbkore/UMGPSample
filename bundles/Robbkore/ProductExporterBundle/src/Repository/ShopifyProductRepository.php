@@ -35,12 +35,20 @@ class ShopifyProductRepository
     private function getAllProducts(): ?string
     {
         try {
-            return $this->client->get($_ENV['SHOPIFY_URI'] . $_ENV['SHOPIFY_PRODUCT_ENDPOINT'], [
+            $response = $this->client->get($_ENV['SHOPIFY_URI'] . $_ENV['SHOPIFY_PRODUCT_ENDPOINT'], [
                 'headers' => [
                     'Accept'     => 'application/json',
                     'X-Shopify-Access-Token'      => $_ENV['SHOPIFY_TOKEN']
                 ]
-            ])->getBody()->getContents();
+            ]);
+
+            // Trapping 300+ status codes for reference.
+            if ($response->getStatusCode() > 299) {
+                $this->logger->error('UpdateProductEvent: Error (' .$response->getStatusCode() . ') ' . $response->getReasonPhrase());
+                return null;
+            }
+
+            return $response->getBody()->getContents();
         } catch(GuzzleException $e) {
             $this->logger->error('ShopifyProductRepository Exception Thrown: (' .$e->getCode() . ') ' . $e->getMessage());
             return null;
