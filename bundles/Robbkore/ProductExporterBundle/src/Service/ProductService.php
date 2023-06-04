@@ -38,7 +38,7 @@ class ProductService
         } catch (GuzzleException $e) {
             // You could fire an event, queue a message or add a sort of reconciliation log behind this, so we can trap failures and retry later
             // Could bubble back a more informative message with that change and add a backend process (command/script) to retry failed transmissions
-            $this->logger->error('ProductService Error (' .  $e->getCode() . ') ' . $e->getMessage());
+            $this->logger->error('ProductService Exception (' .  $e->getCode() . ') ' . $e->getMessage());
             return;
         }
 
