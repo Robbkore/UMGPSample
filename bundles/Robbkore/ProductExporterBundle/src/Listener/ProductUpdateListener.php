@@ -6,8 +6,12 @@ use Pimcore\Event\Model\DataObjectEvent;
 use Pimcore\Logger;
 use Pimcore\Event\Model\ElementEventInterface;
 use Pimcore\Model\DataObject\Product;
+use Robbkore\ProductExporterBundle\Event\CreateProductEvent;
 
 class ProductUpdateListener {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function onObjectPostUpdate(ElementEventInterface $eventElement): void {
         $logger = new Logger();
         $logger->info('ProductUpdateListener::onObjectPostUpdate called');
@@ -21,10 +25,6 @@ class ProductUpdateListener {
         $dataObject = $eventElement->getObject();
 
         if ($dataObject instanceof Product) {
-            $sku = $dataObject->getSku();
-            $name = $dataObject->getName();
-            $price = $dataObject->getPrice();
-            $media_type = $dataObject->getMedia_type();
             $isPublished = $dataObject->isPublished();
 
             // If the product is not published, just log that there was nothing updated.
@@ -33,7 +33,9 @@ class ProductUpdateListener {
                 return;
             }
 
-            $logger->info('ProductUpdateListener: Product Detected: ' . $name . '(' . $sku . ')  ' . $price . ' ' . $media_type);
+            $event = new CreateProductEvent();
+            $event->create($dataObject);
+            $logger->info('ProductUpdateListener: Product Exporter Complete.');
         }
     }
 }

@@ -12,6 +12,7 @@
   },
   "prefer-stable": true,
   "require": {
+    "guzzlehttp/guzzle": "^7.7",
     "pimcore/admin-ui-classic-bundle": "^1.0",
     "pimcore/bundle-generator": "^2.0",
     "pimcore/pimcore": "^11.0",
