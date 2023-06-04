@@ -16,6 +16,14 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
+    Robbkore\ProductExporterBundle\Event\:
+        resource: '../src/Event'
+        public: true
+
+    Robbkore\ProductExporterBundle\Repository\:
+        resource: '../src/Repository'
+        public: true
+
 # add more services, or override services that need manual wiring
 #    Robbkore\ProductExporterBundle\ExampleClass:
 #        arguments:
