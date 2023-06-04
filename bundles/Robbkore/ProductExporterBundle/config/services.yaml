@@ -16,8 +16,8 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
-    Robbkore\ProductExporterBundle\Event\:
-        resource: '../src/Event'
+    Robbkore\ProductExporterBundle\Service\:
+        resource: '../src/Service'
         public: true
 
     Robbkore\ProductExporterBundle\Repository\:

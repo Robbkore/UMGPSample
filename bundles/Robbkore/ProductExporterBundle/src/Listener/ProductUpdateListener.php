@@ -6,17 +6,15 @@ use Pimcore\Event\Model\DataObjectEvent;
 use Pimcore\Event\Model\ElementEventInterface;
 use Pimcore\Model\DataObject\Product;
 use Psr\Log\LoggerInterface;
-use Robbkore\ProductExporterBundle\Event\CreateProductEvent;
-use Robbkore\ProductExporterBundle\Event\UpdateProductEvent;
 use Robbkore\ProductExporterBundle\Repository\ShopifyProductRepository;
+use Robbkore\ProductExporterBundle\Service\ProductService;
 
 class ProductUpdateListener
 {
     public function __construct(
         private LoggerInterface $logger,
         private ShopifyProductRepository $productRepository,
-        private CreateProductEvent $createProductEvent,
-        private UpdateProductEvent $updateProductEvent
+        private ProductService $productService
     )
     {
     }
@@ -44,13 +42,7 @@ class ProductUpdateListener
 
             $shopifyProductId = $this->productRepository->getIdForSku($dataObject->getSku());
 
-            if (!is_null($shopifyProductId)) {
-                $this->updateProductEvent->update($shopifyProductId, $dataObject);
-                $this->logger->info('Updated Product: ' . $shopifyProductId);
-            } else {
-                $this->createProductEvent->create($dataObject);
-                $this->logger->info('ProductUpdateListener: New Product Added.');
-            }
+            $this->productService->save($dataObject, $shopifyProductId);
 
             $this->logger->info('ProductUpdateListener: Product Exporter Complete.');
         }

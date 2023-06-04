@@ -35,7 +35,7 @@ class ShopifyProductRepository
     private function getAllProducts(): ?string
     {
         try {
-            $response = $this->client->get($_ENV['SHOPIFY_URI'] . $_ENV['SHOPIFY_PRODUCT_ENDPOINT'], [
+            $response = $this->client->get($_ENV['SHOPIFY_URI'] . 'products.json', [
                 'headers' => [
                     'Accept'     => 'application/json',
                     'X-Shopify-Access-Token'      => $_ENV['SHOPIFY_TOKEN']
