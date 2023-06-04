@@ -44,7 +44,7 @@ class ShopifyProductRepository
 
             // Trapping 300+ status codes for reference.
             if ($response->getStatusCode() > 299) {
-                $this->logger->error('UpdateProductEvent: Error (' .$response->getStatusCode() . ') ' . $response->getReasonPhrase());
+                $this->logger->error('ShopifyProductRepository: Error (' .$response->getStatusCode() . ') ' . $response->getReasonPhrase());
                 return null;
             }
 
